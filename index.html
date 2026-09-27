@@ -1,181 +1,389 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Victor Jenckel — Automação Industrial & Engenharia de Dados</title>
-<meta name="description" content="Victor Jenckel — engenheiro de automação industrial e instrumentação, integrando OT e IT em plantas de processo contínuo.">
+<title>Victor Jenckel — Industrial Automation, SCADA &amp; Data Integration Engineer</title>
+<meta name="description" content="Victor Jenckel — industrial automation, instrumentation and SCADA integration engineer, bridging OT and IT in continuous-process plants.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f0f2f0; --panel: #ffffff; --text: #14181a; --muted: #5b6669;
-    --ot: #b8690f; --it: #0f7c88; --line: #ccd2d3;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #f5f4f1; --panel: #ffffff; --text: #16181a; --muted: #63696b;
+    --accent: #b8690f; --line: #dcdad4;
     box-sizing: border-box;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0d1113; --panel: #161b1e; --text: #e8ecec; --muted: #8a969a;
-      --ot: #f2a93b; --it: #4fd0dd; --line: #2a3236;
+      --bg: #121212; --panel: #1a1a1a; --text: #ececea; --muted: #96999a;
+      --accent: #f2a93b; --line: #2c2c2c;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0d1113; --panel: #161b1e; --text: #e8ecec; --muted: #8a969a;
-    --ot: #f2a93b; --it: #4fd0dd; --line: #2a3236;
+    --bg: #121212; --panel: #1a1a1a; --text: #ececea; --muted: #96999a;
+    --accent: #f2a93b; --line: #2c2c2c;
   }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html { scroll-padding-top: 70px; scroll-behavior: smooth; }
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--bg); color: var(--text);
     font-family: 'IBM Plex Sans', -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
   .mono { font-family: 'IBM Plex Mono', monospace; }
+  a { color: inherit; }
 
-  /* header */
-  header { padding: 64px 0 40px; border-bottom: 1px solid var(--line); }
-  .mark { font-size: 13px; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 18px; }
-  .mark span:first-child { color: var(--ot); }
-  .mark span:last-child { color: var(--it); }
-  h1 { font-size: clamp(32px, 6vw, 44px); margin: 0 0 8px; line-height: 1.1; font-weight: 700; }
-  .role { font-size: 18px; color: var(--muted); margin: 0 0 24px; max-width: 46ch; }
-  .lede { font-size: 16px; line-height: 1.6; max-width: 62ch; margin: 0 0 28px; }
-  .lede b { color: var(--text); font-weight: 600; }
-  .links { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; }
-  .links a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); }
-  .links a:hover { border-color: var(--it); }
-  .links span { color: var(--muted); }
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 10; background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .navrow { display: flex; align-items: center; justify-content: space-between; height: 62px; gap: 16px; }
+  .brand { font-weight: 700; font-size: 15px; text-decoration: none; letter-spacing: 0.01em; }
+  .navlinks { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+  .navlinks a { text-decoration: none; }
+  .navlinks a:hover { color: var(--text); }
+  #theme-toggle {
+    font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted);
+    background: none; border: 1px solid var(--line); border-radius: 3px;
+    padding: 5px 10px; cursor: pointer;
+  }
+  #theme-toggle:hover { color: var(--text); border-color: var(--muted); }
+  @media (max-width: 640px) { .navlinks { display: none; } }
 
-  /* bridge svg */
-  .bridge { margin: 28px 0 -6px; }
-  .bridge svg { width: 100%; height: auto; display: block; }
+  /* hero */
+  header.hero { padding: 72px 0 44px; }
+  .eyebrow { font-size: 13px; color: var(--accent); margin: 0 0 16px; }
+  h1 { font-size: clamp(34px, 6vw, 50px); margin: 0 0 6px; line-height: 1.08; font-weight: 700; }
+  .role { font-size: 19px; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
+  .lede { font-size: 16px; line-height: 1.65; max-width: 60ch; margin: 0 0 28px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 34px; }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 14px; font-weight: 600;
+    padding: 11px 20px; border-radius: 4px;
+  }
+  .btn.primary { background: var(--text); color: var(--bg); }
+  .btn.ghost { border: 1px solid var(--line); color: var(--text); }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 13.5px; color: var(--muted); list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); padding-top: 20px; }
 
   /* sections */
-  section { padding: 44px 0; border-bottom: 1px solid var(--line); }
+  section { padding: 52px 0; border-bottom: 1px solid var(--line); }
   section:last-of-type { border-bottom: none; }
-  .h2 { font-size: 13px; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 24px; text-transform: uppercase; }
+  .h2 { font-size: 26px; margin: 4px 0 34px; font-weight: 700; max-width: 26ch; }
 
-  /* projects */
-  .proj { padding: 22px 0; border-top: 1px solid var(--line); }
-  .proj:first-child { border-top: none; padding-top: 0; }
-  .proj h3 { font-size: 18px; margin: 0 0 8px; font-weight: 600; }
-  .proj p { font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 0 12px; max-width: 64ch; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { font-size: 12px; padding: 3px 9px; border-radius: 3px; }
-  .tag.ot { color: var(--ot); border: 1px solid var(--ot); }
-  .tag.it { color: var(--it); border: 1px solid var(--it); }
+  /* layers */
+  .layers { display: grid; gap: 0; }
+  .layer { display: grid; grid-template-columns: 48px 1fr; gap: 18px; padding: 16px 0; border-top: 1px solid var(--line); }
+  .layer:first-child { border-top: none; }
+  .layer .n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); padding-top: 2px; }
+  .layer h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  .layer p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 60ch; }
 
-  .note { font-size: 14px; color: var(--muted); line-height: 1.6; padding-top: 18px; }
+  /* work grid */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
+  @media (max-width: 680px) { .grid { grid-template-columns: 1fr; } }
+  .card { }
+  .shot {
+    position: relative; aspect-ratio: 16/10; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+  }
+  .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .shot__hint {
+    display: none; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;
+    color: var(--muted); text-align: center; padding: 10px; line-height: 1.6;
+  }
+  .shot--empty img { display: none; }
+  .shot--empty { border-style: dashed; }
+  .shot--empty .shot__hint { display: block; }
+  .tag-cat { font-size: 12px; color: var(--accent); margin-bottom: 6px; }
+  .card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 600; }
+  .card p { margin: 0 0 12px; font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 11.5px; padding: 3px 9px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+  .note { font-size: 14px; color: var(--muted); line-height: 1.65; padding-top: 30px; margin-top: 6px; border-top: 1px solid var(--line); }
   .note b { color: var(--text); }
 
+  /* timeline */
+  .tl { }
+  .tl-item { display: grid; grid-template-columns: 160px 1fr; gap: 18px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .tl-item:first-child { border-top: none; }
+  .tl-item .when { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--muted); padding-top: 2px; }
+  .tl-item h3 { margin: 0 0 2px; font-size: 15.5px; font-weight: 600; }
+  .tl-item span.co { font-size: 14px; color: var(--muted); }
+  @media (max-width: 560px) { .tl-item { grid-template-columns: 1fr; gap: 4px; } }
+
   /* skills */
-  .skill-row { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--line); align-items: baseline; flex-wrap: wrap; }
+  .skill-row { display: grid; grid-template-columns: 170px 1fr; gap: 18px; padding: 14px 0; border-top: 1px solid var(--line); }
   .skill-row:first-child { border-top: none; }
-  .skill-cat { font-size: 13px; color: var(--muted); min-width: 150px; flex-shrink: 0; }
-  .skill-list { font-size: 15px; line-height: 1.7; }
+  .skill-cat { font-size: 13px; color: var(--muted); }
+  .skill-list { font-size: 14.5px; line-height: 1.7; }
+  @media (max-width: 560px) { .skill-row { grid-template-columns: 1fr; gap: 4px; } }
 
-  footer { padding: 40px 0 64px; font-size: 13px; color: var(--muted); }
-  footer a { color: var(--muted); }
+  /* contact */
+  .contact { text-align: left; }
+  .contact h2 { font-size: 30px; margin: 0 0 14px; max-width: 20ch; }
+  .contact p { font-size: 15.5px; color: var(--muted); max-width: 50ch; margin: 0 0 26px; }
 
-  @media (max-width: 560px) {
-    .skill-cat { min-width: 100%; margin-bottom: 2px; }
-  }
+  footer { padding: 36px 0 60px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 13px; color: var(--muted); }
+  footer .flinks { display: flex; gap: 16px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--text); }
 </style>
 </head>
 <body>
+
+<nav>
+  <div class="wrap navrow">
+    <a class="brand" href="#top">Victor Jenckel</a>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button id="theme-toggle" type="button">System</button>
+  </div>
+</nav>
+
 <div class="wrap">
 
-  <header>
-    <div class="mark mono"><span>OT</span> &nbsp;⟶⟵&nbsp; <span>IT</span></div>
-    <h1>Victor Jenckel</h1>
-    <p class="role">Engenheiro de Automação Industrial, Instrumentação &amp; Engenharia de Dados</p>
-    <p class="lede">Mais de 15 anos de chão de fábrica em automação, instrumentação e sistemas de controle, hoje unidos a formação e prática em engenharia de dados. Meu trabalho é <b>conectar o mundo OT ao IT</b>: integrar CLPs, sistemas de visão e instrumentação de campo entre fabricantes diferentes, e levar esses dados até onde viram decisão — pipelines, BI, monitoramento preditivo.</p>
-    <div class="links">
-      <a href="mailto:victorjenckel@gmail.com">victorjenckel@gmail.com</a>
-      <a href="https://www.linkedin.com/in/victorjenckel" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/VictorJenckel" target="_blank" rel="noopener">GitHub</a>
-      <span>Taubaté, SP — Brasil</span>
+  <header class="hero" id="top">
+    <p class="eyebrow mono">Industrial automation · SCADA · industrial data</p>
+    <h1>Victor Jenckel.</h1>
+    <p class="role">Industrial Automation, SCADA &amp; Data Integration Engineer</p>
+    <p class="lede">I connect field instrumentation, PLCs and SCADA/HMI systems into data that runs the plant — sixteen years on the factory floor, now paired with a Computer Engineering degree and production data pipelines. Currently focused on SCADA integration and plant-wide historian &amp; data projects.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#work">See my work</a>
+      <a class="btn ghost" href="mailto:victorjenckel@gmail.com">Email me</a>
     </div>
-
-    <div class="bridge">
-      <svg viewBox="0 0 700 60" xmlns="http://www.w3.org/2000/svg" role="presentation">
-        <line x1="20" y1="30" x2="330" y2="30" stroke="var(--ot)" stroke-width="1.5"/>
-        <circle cx="60" cy="30" r="4" fill="var(--ot)"/>
-        <circle cx="150" cy="30" r="4" fill="var(--ot)"/>
-        <circle cx="240" cy="30" r="4" fill="var(--ot)"/>
-        <line x1="370" y1="30" x2="680" y2="30" stroke="var(--it)" stroke-width="1.5"/>
-        <circle cx="460" cy="30" r="4" fill="var(--it)"/>
-        <circle cx="550" cy="30" r="4" fill="var(--it)"/>
-        <circle cx="640" cy="30" r="4" fill="var(--it)"/>
-        <circle cx="350" cy="30" r="7" fill="none" stroke="var(--text)" stroke-width="1.5"/>
-      </svg>
-    </div>
+    <ul class="facts">
+      <li>16 years, industrial automation &amp; instrumentation</li>
+      <li>B.Eng. Computer Engineering, 2026</li>
+      <li>Taubaté, Brazil — open to remote &amp; on-site work</li>
+    </ul>
   </header>
 
-  <section>
-    <p class="h2">Projetos</p>
-
-    <div class="proj">
-      <h3>Integração Eagle Vision — CLP Siemens S7-1500</h3>
-      <p>Desenvolvimento de um bloco de comunicação TCP completo (FB_TCPChannel) entre a máquina de inspeção Eagle Vision e o CLP da linha de vidro plano, com máquina de estados TCON/TDISCON e contador sequencial dedicado para eliminar uma race condition no rastreamento de chapas pareadas. Em uso em ambiente real de fabricação.</p>
-      <div class="tags"><span class="tag ot">SCL</span><span class="tag ot">TIA Portal</span><span class="tag ot">TCP/IP</span></div>
+  <section id="approach">
+    <p class="eyebrow mono">My approach</p>
+    <h2 class="h2">From sensor to decision.</h2>
+    <div class="layers">
+      <div class="layer">
+        <span class="n mono">01</span>
+        <div><h3>Field instrumentation</h3><p>Pressure, flow, level and temperature transmitters, control valves, thermocouples, wiring and loop checks.</p></div>
+      </div>
+      <div class="layer">
+        <span class="n mono">02</span>
+        <div><h3>Control logic</h3><p>PLC programming across Siemens and Rockwell platforms — interlocks, sequencing, and commissioning.</p></div>
+      </div>
+      <div class="layer">
+        <span class="n mono">03</span>
+        <div><h3>SCADA &amp; HMI</h3><p>Screen design, alarms, user administration and historians — GE iFIX, Ignition.</p></div>
+      </div>
+      <div class="layer">
+        <span class="n mono">04</span>
+        <div><h3>Systems integration</h3><p>Bridging equipment from different vendors over OPC UA, Modbus TCP, PROFINET and Profibus.</p></div>
+      </div>
+      <div class="layer">
+        <span class="n mono">05</span>
+        <div><h3>Data &amp; IT</h3><p>Pipelines, databases and dashboards that turn plant data into decisions — Airflow, PostgreSQL, Rust.</p></div>
+      </div>
+      <div class="layer">
+        <span class="n mono">06</span>
+        <div><h3>Commissioning &amp; handover</h3><p>Startup support, troubleshooting, documentation and as-built drawings (EPLAN).</p></div>
+      </div>
     </div>
-
-    <div class="proj">
-      <h3>Integração CNC Lisec/Beckhoff — Linha de Recorte S7-400</h3>
-      <p>Integração de uma mesa de corte CNC (soft PLC e drives Beckhoff) à linha de recorte automática de vidro, comandada por CLP Siemens S7-400, via OPC UA e I/O discreto. Responsável pelo as-built elétrico em EPLAN e por toda a nova lógica de automação. Projeto em produção.</p>
-      <div class="tags"><span class="tag ot">OPC UA</span><span class="tag ot">EPLAN</span><span class="tag ot">Beckhoff</span></div>
-    </div>
-
-    <div class="proj">
-      <h3>DC2 — Plataforma de Dados de Produção</h3>
-      <p>Projeto, deploy e manutenção de uma plataforma de dados própria em produção: cinco DAGs Airflow e binários Rust de ETL (arquitetura "brain/muscle" — Rust move dados, Python/Airflow orquestra) para as máquinas de inspeção Eagle, FSP e ISRA, containerizada em Docker Compose para rede industrial isolada, alimentando o BI da empresa via PostgreSQL.</p>
-      <div class="tags"><span class="tag it">Airflow</span><span class="tag it">Rust</span><span class="tag it">PostgreSQL</span><span class="tag it">Docker</span></div>
-    </div>
-
-    <div class="proj">
-      <h3>Monitoramento Preditivo de CLPs — FB_DiagMonitor</h3>
-      <p>Sistema próprio de diagnóstico preditivo de saúde para 23 CLPs Siemens das famílias S7-400/1200/1500, com lógica em SCL rodando três monitoramentos concorrentes independentes, testada e refinada em tempo real no TIA Portal.</p>
-      <div class="tags"><span class="tag ot">SCL</span><span class="tag ot">TIA Portal</span></div>
-    </div>
-
-    <div class="proj">
-      <h3>Análise de Vibração — Arquitetura Two-API</h3>
-      <p>Em parceria com um cientista de dados, arquitetura de duas APIs contract-first (FastAPI) separando infraestrutura e modelo de ML, para análise de vibração de motores e cabeçotes de corte de vidro.</p>
-      <div class="tags"><span class="tag it">FastAPI</span><span class="tag it">Python</span></div>
-    </div>
-
-    <p class="note"><b>Laboratório pessoal:</b> estudo diário de Edge &amp; IIoT com ESP32 e Raspberry Pi — pipelines MQTT→Kafka, comunicação S7/Modbus em Rust, laboratório de SCADA Ignition e integração Factory IO + CODESYS via OPC UA.</p>
   </section>
 
-  <section>
-    <p class="h2">Competências</p>
+  <section id="work">
+    <p class="eyebrow mono">Selected work</p>
+    <h2 class="h2">Projects I've built and shipped.</h2>
+    <div class="grid">
+
+      <div class="card">
+        <div class="shot">
+          <img src="assets/img/scada-ifix.jpg" alt="GE iFIX SCADA screens" onerror="this.closest('.shot').classList.add('shot--empty')">
+          <span class="shot__hint">Add a photo:<br>assets/img/scada-ifix.jpg</span>
+        </div>
+        <p class="tag-cat mono">SCADA</p>
+        <h3>SCADA Administration — GE iFIX &amp; Historian</h3>
+        <p>Day-to-day ownership of the plant's GE iFIX 6.1 SCADA across production lines: screen design, user administration, database configuration and GE Historian support.</p>
+        <div class="pills"><span class="pill">GE iFIX</span><span class="pill">Historian</span><span class="pill">SCADA admin</span></div>
+      </div>
+
+      <div class="card">
+        <div class="shot">
+          <img src="assets/img/eagle-vision.jpg" alt="Eagle Vision inspection integration" onerror="this.closest('.shot').classList.add('shot--empty')">
+          <span class="shot__hint">Add a photo:<br>assets/img/eagle-vision.jpg</span>
+        </div>
+        <p class="tag-cat mono">Automation</p>
+        <h3>Eagle Vision Inspection Integration — Siemens S7-1500</h3>
+        <p>Built a complete TCP communication block (FB_TCPChannel) between the Eagle Vision inspection machine and the line PLC, with a TCON/TDISCON state machine and a sequential counter that removed a race condition in paired-sheet tracking. Running in live production.</p>
+        <div class="pills"><span class="pill">SCL</span><span class="pill">TIA Portal</span><span class="pill">TCP/IP</span></div>
+      </div>
+
+      <div class="card">
+        <div class="shot">
+          <img src="assets/img/cnc-integration.jpg" alt="CNC Lisec Beckhoff integration" onerror="this.closest('.shot').classList.add('shot--empty')">
+          <span class="shot__hint">Add a photo:<br>assets/img/cnc-integration.jpg</span>
+        </div>
+        <p class="tag-cat mono">Automation</p>
+        <h3>CNC Cutting Table Integration — Siemens S7-400</h3>
+        <p>Integrated a Lisec CNC cutting table (Beckhoff soft-PLC and drives) into the automatic glass cutting line, driven by a Siemens S7-400, over OPC UA and discrete I/O. Owned the electrical as-built (EPLAN) and all new automation logic.</p>
+        <div class="pills"><span class="pill">OPC UA</span><span class="pill">EPLAN</span><span class="pill">Beckhoff</span></div>
+      </div>
+
+      <div class="card">
+        <div class="shot">
+          <img src="assets/img/plc-health.jpg" alt="Predictive PLC health monitoring" onerror="this.closest('.shot').classList.add('shot--empty')">
+          <span class="shot__hint">Add a photo:<br>assets/img/plc-health.jpg</span>
+        </div>
+        <p class="tag-cat mono">Automation</p>
+        <h3>Predictive PLC Health Monitoring — FB_DiagMonitor</h3>
+        <p>A self-built diagnostic system for 23 Siemens PLCs (S7-400/1200/1500), running three independent concurrent monitoring routines in SCL, tested and refined live in TIA Portal.</p>
+        <div class="pills"><span class="pill">SCL</span><span class="pill">TIA Portal</span></div>
+      </div>
+
+      <div class="card">
+        <div class="shot">
+          <img src="assets/img/dc2-pipeline.jpg" alt="DC2 production data platform" onerror="this.closest('.shot').classList.add('shot--empty')">
+          <span class="shot__hint">Add a photo:<br>assets/img/dc2-pipeline.jpg</span>
+        </div>
+        <p class="tag-cat mono">Data</p>
+        <h3>DC2 — Production Data Platform</h3>
+        <p>Designed, shipped and maintain a production data platform: five Airflow DAGs and Rust ETL binaries ("brain/muscle" architecture) for the Eagle, FSP and ISRA inspection lines, containerised for an air-gapped network and feeding the company's BI over PostgreSQL.</p>
+        <div class="pills"><span class="pill">Airflow</span><span class="pill">Rust</span><span class="pill">PostgreSQL</span><span class="pill">Docker</span></div>
+      </div>
+
+      <div class="card">
+        <div class="shot">
+          <img src="assets/img/vibration-api.jpg" alt="Vibration analysis two-API architecture" onerror="this.closest('.shot').classList.add('shot--empty')">
+          <span class="shot__hint">Add a photo:<br>assets/img/vibration-api.jpg</span>
+        </div>
+        <p class="tag-cat mono">Data</p>
+        <h3>Vibration Analysis — Two-API Architecture</h3>
+        <p>Paired with a data scientist to design a contract-first, two-API architecture (FastAPI) separating infrastructure from the ML model, for vibration analysis on motors and glass cutting heads.</p>
+        <div class="pills"><span class="pill">FastAPI</span><span class="pill">Python</span></div>
+      </div>
+
+    </div>
+    <p class="note"><b>Currently building:</b> a home lab for Edge &amp; IIoT — ESP32 and Raspberry Pi, an Ignition SCADA lab in Docker, MQTT→Kafka pipelines, and a Rust library for S7/Modbus communication.</p>
+  </section>
+
+  <section id="experience">
+    <p class="eyebrow mono">Career</p>
+    <h2 class="h2">Industry experience.</h2>
+    <div class="tl">
+      <div class="tl-item">
+        <span class="when mono">Feb 2026 – present</span>
+        <div><h3>Project Technician</h3><span class="co">Cebrace Vidros Planos · Caçapava, SP</span></div>
+      </div>
+      <div class="tl-item">
+        <span class="when mono">Nov 2019 – May 2026</span>
+        <div><h3>Electronics Technician</h3><span class="co">Cebrace Vidros Planos · Caçapava, SP</span></div>
+      </div>
+      <div class="tl-item">
+        <span class="when mono">Jul 2018 – Oct 2019</span>
+        <div><h3>Electronics Technician</h3><span class="co">Klabin · Jundiaí, SP</span></div>
+      </div>
+      <div class="tl-item">
+        <span class="when mono">Apr 2018 – Jul 2018</span>
+        <div><h3>Maintenance Electrician</h3><span class="co">Correias Mercúrio S.A. · Jundiaí, SP</span></div>
+      </div>
+      <div class="tl-item">
+        <span class="when mono">Oct 2013 – Apr 2018</span>
+        <div><h3>Maintenance Electrician</h3><span class="co">Casf Engenharia · Jundiaí, SP</span></div>
+      </div>
+      <div class="tl-item">
+        <span class="when mono">Oct 2012 – Sep 2013</span>
+        <div><h3>Electrical Panel Assembler</h3><span class="co">Elepaineis Painéis Elétricos · Mogi das Cruzes, SP</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <p class="eyebrow mono">Toolkit</p>
+    <h2 class="h2">Education &amp; skills.</h2>
     <div class="skill-row">
-      <span class="skill-cat">Automação / CLPs</span>
-      <span class="skill-list">Siemens TIA Portal (S7-400/1200/1500, SCL, Ladder), Rockwell MicroLogix, DCS Eurotherm &amp; Yokogawa Stardom, SCADA GE iFIX, Ignition</span>
+      <span class="skill-cat">SCADA &amp; HMI</span>
+      <span class="skill-list">GE iFIX 6.1 (screens, user administration, database), GE Historian, Ignition SCADA (Docker lab)</span>
     </div>
     <div class="skill-row">
-      <span class="skill-cat">Instrumentação</span>
-      <span class="skill-list">Pressão, vazão, nível, temperatura, válvulas de controle — Smar, Endress+Hauser, Yokogawa, Vivace — 4-20mA/HART</span>
+      <span class="skill-cat">PLC &amp; automation</span>
+      <span class="skill-list">Siemens TIA Portal (S7-400/1200/1500, SCL, Ladder), Rockwell MicroLogix, DCS Eurotherm PAC2750, Yokogawa Stardom</span>
     </div>
     <div class="skill-row">
-      <span class="skill-cat">Redes industriais</span>
+      <span class="skill-cat">Field instrumentation</span>
+      <span class="skill-list">Pressure, flow, level &amp; temperature transmitters, control valves, thermocouples — Smar, Endress+Hauser, Yokogawa, Vivace — 4-20mA / HART</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cat">Industrial networks</span>
       <span class="skill-list">PROFINET, Modbus TCP, OPC UA, Profibus</span>
     </div>
     <div class="skill-row">
-      <span class="skill-cat">Dados / Software</span>
+      <span class="skill-cat">Data &amp; software</span>
       <span class="skill-list">Python, Rust, SQL, Apache Airflow, PostgreSQL, Docker, FastAPI, Kafka, Linux (Ubuntu Server, systemd)</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cat">Education</span>
+      <span class="skill-list">B.Eng. Computer Engineering — Universidade Anhembi Morumbi (2022–2026) · Data Science, Data Engineering &amp; Cloud Computing — PoD Academy (2024–2025) · Electronics Technician — Colégio Duque de Caxias (2015–2016) · SENAI: Instrumentation, Advanced PLC (TIA Portal), Electrical Commands, VFDs (Weg / Siemens / ABB)</span>
     </div>
   </section>
 
-  <footer>
-    Victor Jenckel — Taubaté, SP, Brasil · <a href="mailto:victorjenckel@gmail.com">victorjenckel@gmail.com</a>
-  </footer>
+  <section id="contact" class="contact">
+    <p class="eyebrow mono">Get in touch</p>
+    <h2>Have a system to integrate?</h2>
+    <p>Talk to me about a SCADA migration, a PLC integration, or a data pipeline for your plant.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="mailto:victorjenckel@gmail.com">Email me</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/victorjenckel" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/VictorJenckel" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
 
 </div>
+
+<footer class="wrap">
+  <span>© <span id="year"></span> Victor Jenckel</span>
+  <div class="flinks">
+    <a href="mailto:victorjenckel@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/victorjenckel" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/VictorJenckel" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function () {
+    var KEY = 'vj-theme';
+    var order = ['system', 'light', 'dark'];
+    var btn = document.getElementById('theme-toggle');
+    var saved = 'system';
+    try { saved = localStorage.getItem(KEY) || 'system'; } catch (e) {}
+
+    function apply(t) {
+      if (t === 'system') { document.documentElement.removeAttribute('data-theme'); }
+      else { document.documentElement.setAttribute('data-theme', t); }
+    }
+    function label(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+
+    apply(saved);
+    btn.textContent = label(saved);
+
+    btn.addEventListener('click', function () {
+      saved = order[(order.indexOf(saved) + 1) % order.length];
+      apply(saved);
+      btn.textContent = label(saved);
+      try { localStorage.setItem(KEY, saved); } catch (e) {}
+    });
+  })();
+</script>
+
 </body>
 </html>
