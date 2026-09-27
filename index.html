@@ -36,7 +36,16 @@
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
   .mono { font-family: 'IBM Plex Mono', monospace; }
   a { color: inherit; }
-
+/* avatar */
+  .avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    margin-bottom: 24px;
+    border: 2px solid var(--line);
+    display: block;
+    object-fit: cover;
+  }
   /* nav */
   nav {
     position: sticky; top: 0; z-index: 10; background: var(--bg);
@@ -154,6 +163,7 @@
 <div class="wrap">
 
   <header class="hero" id="top">
+    <img src="https://github.com/VictorJenckel.png" alt="Foto de Victor Jenckel" class="avatar">
     <p class="eyebrow mono">Industrial automation · SCADA · industrial data</p>
     <h1>Victor Jenckel.</h1>
     <p class="role">Industrial Automation, SCADA &amp; Data Integration Engineer</p>
