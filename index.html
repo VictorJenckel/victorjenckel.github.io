@@ -270,16 +270,16 @@
         <div class="pills"><span class="pill">Airflow</span><span class="pill">Rust</span><span class="pill">PostgreSQL</span><span class="pill">Docker</span></div>
       </div>
 
-      <div class="card">
-        <div class="shot">
-          <img src="assets/img/vibration-api.jpg" alt="Vibration analysis two-API architecture" onerror="this.closest('.shot').classList.add('shot--empty')">
-          <span class="shot__hint">Add a photo:<br>assets/img/vibration-api.jpg</span>
-        </div>
-        <p class="tag-cat mono">Data</p>
-        <h3>Vibration Analysis — Two-API Architecture</h3>
-        <p>Paired with a data scientist to design a contract-first, two-API architecture (FastAPI) separating infrastructure from the ML model, for vibration analysis on motors and glass cutting heads.</p>
-        <div class="pills"><span class="pill">FastAPI</span><span class="pill">Python</span></div>
-      </div>
+<div class="card">
+  <div class="shot">
+    <img src="assets/img/rtsp-gateway.jpg" alt="Passive RTSP gateway for GigE Vision cameras" onerror="this.closest('.shot').classList.add('shot--empty')">
+    <span class="shot__hint">Add a photo:<br>assets/img/rtsp-gateway.jpg</span>
+  </div>
+  <p class="tag-cat mono">Integration</p>
+  <h3>Passive RTSP Gateway for GigE Vision Cameras</h3>
+  <p>Built a passive network gateway that mirrors GigE Vision camera traffic from an inspection line, reconstructs live frames from raw GVSP packets with a custom Python sniffer, and re-encodes them with NVENC into an RTSP feed for the plant's VMS — without ever touching the proprietary inspection controller. Runs in production as systemd services with a watchdog and frame-concealment logic for dropped packets.</p>
+  <div class="pills"><span class="pill">GVSP</span><span class="pill">GStreamer</span><span class="pill">NVENC</span></div>
+</div>
 
     </div>
     <p class="note"><b>Currently building:</b> a home lab for Edge &amp; IIoT — ESP32 and Raspberry Pi, an Ignition SCADA lab in Docker, MQTT→Kafka pipelines, and a Rust library for S7/Modbus communication. <b>Currently studying for the Inductive Automation Ignition Certification.</b></p>
